@@ -9,7 +9,7 @@
 
 
 @section('css')
-    <link rel="stylesheet" href="./css/comment.css">
+<link rel="stylesheet" href="{{asset('css/comment.css')}}">
 
 @endsection
 
@@ -47,7 +47,7 @@
                                 <div class="article-top-right">
                                     <div class="article-time-box">
                                         <div class="article-time">發文時間：</div>
-                                        <div class="time-box">{{$comment->created_at}}</div>
+                                        <div class="time-box">{{Substr($comment->created_at,0,10)}}</div>
                                     </div>
                                 </div>
                             </div>

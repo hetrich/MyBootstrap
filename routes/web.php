@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingCarController;
+use App\Http\Controllers\BannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,16 @@ Route::get('/', [ShoppingCarController::class,'index']);
 
 //購物車第一頁
 Route::get('/checkedout1', [ShoppingCarController::class,'checkedout1']);
+
+
 //購物車第二頁
 Route::get('/checkedout2', [ShoppingCarController::class,'checkedout2']);
+
+
 //購物車第三頁
 Route::get('/checkedout3', [ShoppingCarController::class,'checkedout3']);
+
+
 //購物車第四頁
 Route::get('/checkedout4', [ShoppingCarController::class,'checkedout4']);
 
@@ -34,9 +41,30 @@ Route::get('/checkedout4', [ShoppingCarController::class,'checkedout4']);
 
 Route::get('comment', [ShoppingCarController::class,'comment']);
 Route::get('comment/save', [ShoppingCarController::class,'save_comment']);
-Route::get('comment/edit/{id}', [ShoppingCarController::class,'edit_comment']);
+
+
+Route::get('comment/edit/{target}', [ShoppingCarController::class,'edit_comment']);
+Route::get('comment/update/{target}', [ShoppingCarController::class,'update_comment']);
+
+
 Route::get('comment/delete/{target}', [ShoppingCarController::class,'delete_comment']);
-// Route::get('comment', [ShoppingCarController::class,'comment']);
+
 
 
 //購物車登入頁
+
+
+
+
+
+//BANNER頁面
+//群組化
+
+Route::prefix('/banner')->group(function(){
+    Route::get('/',[BannerController::class,'index']);
+    Route::get('/create',[BannerController::class,'create']);
+    Route::post('/store',[BannerController::class,'store']);
+    Route::get('/edit/{id}',[BannerController::class,'edit']);
+    Route::post('/update/{id}',[BannerController::class,'update']);
+    Route::post('/delete/{id}',[BannerController::class,'destroy']);
+});

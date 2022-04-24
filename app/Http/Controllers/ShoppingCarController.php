@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
 
 class ShoppingCarController extends Controller
@@ -24,7 +25,7 @@ class ShoppingCarController extends Controller
     //購物網站留言板
     public function comment(){
 
-$comments = DB::table('comments')->orderby('id','desc')->get();
+$comments = Comment::orderby('id','desc')->get();
 
 return view('comment.comment', compact('comments'));
 
@@ -32,7 +33,7 @@ return view('comment.comment', compact('comments'));
 
     public function save_comment(Request $request){
 
-        DB::table('comments')->insert([
+        Comment::Create([
             'title' => $request->title,
             'name' => $request->name,
             'content' => $request->content,
@@ -43,9 +44,38 @@ return view('comment.comment', compact('comments'));
     }
 
 
-    public function edit_comment(Request $request){
+    public function edit_comment($id){
+
+
+        $comment = DB::table('comments')->find($id);
+
+
+        return view('comment.edit',compact('comment'));
 
     }
+
+
+
+    public function update_comment($id, Request $request){
+
+
+
+
+      DB::table('comments')->where('id',$id)->update([
+
+            'title' => $request->title,
+            'name' => $request->name,
+            'content' => $request->content,
+
+      ]);
+
+
+      return redirect('/comment');
+
+    }
+
+
+
 
     public function delete_comment($target){
 
