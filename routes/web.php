@@ -30,9 +30,13 @@ Route::get('/checkedout3', [ShoppingCarController::class,'checkedout3']);
 Route::get('/checkedout4', [ShoppingCarController::class,'checkedout4']);
 
 
-//購物車第登入頁
-
-
 //購物車留言板
+
+Route::get('comment', [ShoppingCarController::class,'comment']);
+Route::get('comment/save', [ShoppingCarController::class,'save_comment']);
+Route::get('comment/edit/{id}', [ShoppingCarController::class,'edit_comment']);
+Route::get('comment/delete/{target}', [ShoppingCarController::class,'delete_comment']);
+// Route::get('comment', [ShoppingCarController::class,'comment']);
+
 
 //購物車登入頁
