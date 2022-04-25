@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingCarController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomepageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,3 +70,23 @@ Route::prefix('/banner')->group(function(){
     Route::post('/update/{id}',[BannerController::class,'update']);
     Route::post('/delete/{id}',[BannerController::class,'destroy']);
 });
+
+
+//商品頁面
+//群組化
+
+Route::prefix('/product')->group(function(){
+    Route::get('/',[ProductController::class,'index']);
+    Route::get('/create',[ProductController::class,'create']);
+    Route::post('/store',[ProductController::class,'store']);
+    Route::get('/edit/{id}',[ProductController::class,'edit']);
+    Route::post('/update/{id}',[ProductController::class,'update']);
+    Route::post('/delete/{id}',[ProductController::class,'destroy']);
+});
+
+
+
+// 商品回傳首頁
+
+Route::get('/', [HomepageController::class,'eightcard']);
+

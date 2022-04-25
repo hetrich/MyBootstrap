@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Banner;
+use Illuminate\Support\Facades\Storage;
+// use App\Http\Controllers\FilesController;
 
 class BannerController extends Controller
 {
@@ -13,10 +16,13 @@ class BannerController extends Controller
      */
     public function index()
     {
+        //將所有banner資料從資料庫拿出來並輸出到列表頁上
+        $banners = Banner::orderBy('id', 'desc')->get();
         //Banner首頁
-        return view('banner.index');
-
+        return view('banner.index', compact('banners'));
     }
+
+    //banner 新增組
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +31,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        //準備新增用的表單給使用者填寫
         return view('banner.create');
     }
 
@@ -37,10 +43,24 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //將使用者的資料經過處理(EX:檔案上傳/防呆.....)後,新增至資料庫
+
+
+
+        $path = Storage::disk('local')->put('public/banner', $request->banner_img);
+
+        $path = str_replace("public",'storage',$path);
+
+        Banner::create([
+            'img_path' => '/'.$path,
+            'img_opacity' => $request->img_opacity,
+            'weight' => $request->weight,
+        ]);
+
         return redirect('/banner');
     }
 
+    //banner 編輯組
 
     /**
      * Show the form for editing the specified resource.
@@ -50,8 +70,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
-        return view('banner.edit');
+        //根據id找到想編輯的資料,將資料連同編輯用的表單畫面回傳給使用者
+        $banner = Banner::find($id);
+        return view('banner.edit',compact('banner'));
     }
 
     /**
@@ -63,6 +84,27 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //根據id找到想編輯的資料
+        $banner = Banner::find($id);
+
+        if ($request->hasfile('banner_img')) {
+            //經過處理(EX:檔案上傳/防呆.....)後
+            $path = Storage::disk('local')->put('public/banner',$request->banner_img);
+            $path = str_replace('public', 'storage',$path);
+
+            //將舊有的資料檔案刪除
+
+            $target = str_replace('/storage', 'public', $banner->img_path);
+            Storage::Disk('local')->delete($target);
+
+            //將新的資料更新到資料庫裏面
+            $banner->img_path = '/' . $path;
+        }
+
+        $banner->img_opacity = $request->img_opacity;
+        $banner->weight = $request->weight;
+        $banner->save();
+
         //
         return redirect('/banner');
     }
@@ -75,7 +117,13 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
+        //使用ID找到要刪除的資料, 並且連同相關檔案一起刪除
+        $banner = Banner::find($id);
+        $target = str_replace('/storage', 'public', $banner->img_path);
+        Storage::disk('local')->delete($target);
+        $banner->delete();
+
         //
-        return redirect('/banner');
+        return redirect('/banner'); //重新導向(送出新的request)到列表
     }
 }

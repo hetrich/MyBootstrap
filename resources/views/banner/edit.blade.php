@@ -3,14 +3,19 @@
 
 @section('pageTitle')
 
-留言板
+編輯檔案
 
 @endsection
 
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/comment.css')}}">
+<style>
 
+    form img{
+        width: 400px;
+    }
+</style>
 @endsection
 
 @section('main')
@@ -19,7 +24,7 @@
                 <div id="section1" class="container-xxl">
                     <!-- 留言板標題 -->
                     <div class="shop-car">
-                        <h3>BANNER新增</h3>
+                        <h3>BANNER修改</h3>
                     </div>
                 </div>
                 <!-- 中間留言文章 -->
@@ -29,27 +34,32 @@
                 </div>
                 <!-- 底部留言表單 -->
                 <div id="section3">
-                    <form action="/banner/store" class="form" method="post" enctype="multipart/form-data" >
+                    <form action="/banner/update/{{$banner->id}}" class="form" method="post" enctype="multipart/form-data" >
 
 @csrf
 
 <div class="upload-box d-flex flex-column" >
+
+      <!-- 預覽圖片 -->
+<div>現在圖片</div>
+      <img src="{{$banner->img_path}}" alt="">
+
 <label for="img_path">圖片</label>
-<input type="file" name="img_path">
+<input type="file" name="img_path" id="img_path" >
 
 <label for="img_opacity">透明度</label>
-<input type="number" name="img_opacity">
+<input type="number" name="img_opacity" id="img_opacity" value="{{$banner->img_opacity}}">
 
 <label for="weight">權重</label>
-<input type="number" name="weight">
+<input type="number" name="weight" id="weight" value="{{$banner->weight}}">
 </div>
 
 
 
             <!-- 按鈕 -->
                         <div class="button-box d-flex justify-content-center">
-                            <button class="btn btn-secondary me-3" type="submit">清除</button>
-                            <button type="submit" class="btn btn-primary">新增BANNER</button>
+                            <button class="btn btn-secondary me-3" type="submit">取消</button>
+                            <button type="submit" class="btn btn-primary">修改BANNER</button>
                         </div>
                     </form>
                 </div>

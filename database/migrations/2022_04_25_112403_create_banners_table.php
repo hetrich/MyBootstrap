@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('_banners', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->string('img_path')->nullable()->comment('圖片路徑');
+
+$table->float('img_opacity')->nullable()->comment('圖片透明度');
+
+$table->integer('weight')->nullable()->comment('圖片權重');
 
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_banners');
+        Schema::dropIfExists('banners');
     }
 };

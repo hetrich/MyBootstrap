@@ -19,7 +19,7 @@
                 <div id="section1" class="container-xxl">
                     <!-- 留言板標題 -->
                     <div class="shop-car">
-                        <h3>BANNER新增</h3>
+                        <h3>新增商品</h3>
                     </div>
                 </div>
                 <!-- 中間留言文章 -->
@@ -29,19 +29,28 @@
                 </div>
                 <!-- 底部留言表單 -->
                 <div id="section3">
-                    <form action="/banner/store" class="form" method="post" enctype="multipart/form-data" >
+                    <form action="/product/store" class="form" method="post" enctype="multipart/form-data" >
 
 @csrf
 
 <div class="upload-box d-flex flex-column" >
-<label for="img_path">圖片</label>
-<input type="file" name="img_path">
+<label for="img">商品圖片</label>
+<input type="file" name="img">
 
-<label for="img_opacity">透明度</label>
-<input type="number" name="img_opacity">
+<label for="name">商品名稱</label>
+<input type="text" name="name">
 
-<label for="weight">權重</label>
-<input type="number" name="weight">
+<label for="description">介紹</label>
+<input type="text" name="description">
+
+
+<label for="price">價格</label>
+<input type="number" name="price">
+
+
+<label for="quantity">數量</label>
+<input type="number" name="quantity">
+
 </div>
 
 
@@ -49,7 +58,7 @@
             <!-- 按鈕 -->
                         <div class="button-box d-flex justify-content-center">
                             <button class="btn btn-secondary me-3" type="submit">清除</button>
-                            <button type="submit" class="btn btn-primary">新增BANNER</button>
+                            <button type="submit" class="btn btn-primary">新增商品</button>
                         </div>
                     </form>
                 </div>
