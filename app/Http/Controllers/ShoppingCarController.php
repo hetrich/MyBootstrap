@@ -86,7 +86,7 @@ class ShoppingCarController extends Controller
     public function edit_comment($id)
     {
         $comment = DB::table('comments')->find($id);
-
+        dd($comment);
         return view('comment.edit', compact('comment'));
     }
 

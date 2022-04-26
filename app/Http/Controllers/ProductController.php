@@ -51,6 +51,7 @@ class ProductController extends Controller
         $product = product::find($id);
 
 
+
         return view('product.productedit',compact('product'));
     }
 
@@ -60,6 +61,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
+
+// dd($product,$product->img);
+
+// dd($product);
+
+        // dd($request->all());
 
         if ($request->hasfile('img')) {
 
@@ -75,8 +82,10 @@ class ProductController extends Controller
             );
             $path = str_replace('public', 'storage', $path);
 
-            $target = str_replace('/storage', 'public', $product->img);
+            $target = str_replace('/storage', '/public', $product->img);
+
             Storage::Disk('local')->delete($target);
+
 
             $product->img = '/' . $path;
         }
