@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-留言板
+編輯留言
 
 @endsection
 

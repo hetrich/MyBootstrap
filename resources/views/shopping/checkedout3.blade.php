@@ -150,10 +150,10 @@
                 <div id="section4">
                     <!-- 功能按鈕 -->
                     <div class="button-box d-flex justify-content-between">
-                        <div class="l-button"><a class="btn btn-primary" href="#" role="button">上一步</a>
+                        <div class="l-button"><a class="btn btn-primary" onclick="history.back()" role="button">上一步</a>
 
                         </div>
-                        <div class="r-button"><a class="btn btn-primary" href="#" role="button">前往付款</a></div>
+                        <div class="r-button"><a class="btn btn-primary" href="/checkedout4" role="button">前往付款</a></div>
                     </div>
                 </div>
             </div>

@@ -205,11 +205,11 @@
                 <div id="section4">
                     <!-- 功能按鈕 -->
                     <div class="button-box d-flex justify-content-end">
-                        <div class="l-button"><a class="btn btn-primary" href="#" role="button"><i
+                        <div class="l-button"><a class="btn btn-primary" href="/checkedout1" role="button"><i
                                     class="fa-solid fa-arrow-left"></i>返回購物</a>
                         </div>
                         <div class="r-button">
-                            <a class="btn btn-primary" href="#" role="button">返回首頁</a>
+                            <a class="btn btn-primary" href="/" role="button">返回首頁</a>
                         </div>
                     </div>
                 </div>

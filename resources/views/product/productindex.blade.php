@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-Banner頁面
+商品管理頁面
 
 @endsection
 

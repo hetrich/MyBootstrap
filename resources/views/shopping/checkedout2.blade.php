@@ -73,16 +73,16 @@
                         </div>
                         <div class="content">
                             <div class="first-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="">
-                                <p>信用卡付款</p>
+                                <input type="radio" name="pay" id="credit-card">
+                                <label for="credit-card"><p>信用卡付款</p></label>
                             </div>
                             <div class="second-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="">
-                                <p>網路 ATM</p>
+                                <input type="radio" name="pay" id="ATM">
+                                <label for="ATM"><p>網路 ATM</p></label>
                             </div>
                             <div class="third-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="">
-                                <p>超商代碼</p>
+                                <input type="radio" name="pay" id="storeCode">
+                                <label for="storeCode"><p>超商代碼</p></label>
                             </div>
                         </div>
                     </div>
@@ -93,12 +93,12 @@
                         </div>
                         <div class="content">
                             <div class="first-choice d-flex align-items-center">
-                                <input type="radio" name="deliver" id="">
-                                <p>黑貓宅配</p>
+                                <input type="radio" name="deliver" id="homeDelivery">
+                                <label for="homeDelivery"><p>黑貓宅配</p></label>
                             </div>
                             <div class="second-choice d-flex align-items-center">
-                                <input type="radio" name="deliver" id="">
-                                <p>超商店到店</p>
+                                <input type="radio" name="deliver" id="storeToStore">
+                                <label for="storeToStore"><p>超商店到店</p></label>
                             </div>
                         </div>
                     </div>
@@ -132,10 +132,10 @@
                 <div id="section4">
                     <!-- 功能按鈕 -->
                     <div class="button-box d-flex justify-content-between">
-                        <div class="l-button"><a class="btn btn-primary" href="#" role="button">上一步</a>
+                        <div class="l-button"><a class="btn btn-primary" onclick="history.back()" role="button">上一步</a>
 
                         </div>
-                        <div class="r-button"><a class="btn btn-primary" href="#" role="button">下一步</a></div>
+                        <div class="r-button"><a class="btn btn-primary" href="/checkedout3" role="button">下一步</a></div>
                     </div>
                 </div>
             </div>

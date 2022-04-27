@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-留言板
+新增BANNER
 
 @endsection
 

@@ -175,7 +175,7 @@
                                     class="fa-solid fa-arrow-left"></i>返回購物</a>
 
                         </div>
-                        <div class="r-button"><a class="btn btn-primary" href="#" role="button">下一步</a></div>
+                        <div class="r-button"><a class="btn btn-primary" href="/checkedout2" role="button">下一步</a></div>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-留言板
+心情留言板
 
 @endsection
 

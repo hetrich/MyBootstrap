@@ -2,7 +2,7 @@
 
 
 @section('pageTitle')
-Document
+首頁
 @endsection
 
 
@@ -66,7 +66,6 @@ Document
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="{{asset('img/homepage-img/swiper-silde1.avif')}}" alt=""></div>
                     <div class="swiper-slide"><img src="{{asset('img/homepage-img/swiper-silde2.jpg')}}" alt=""></div>
-
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -416,7 +415,7 @@ Document
                 </div>
                 <div class="big-goods-button d-flex">
                     <div class="price-box">
-                        <div class="price">$58.00</div>
+                        <div class="price">${{$bs->price}}</div>
                     </div>
                     <div class="button-box">
                         <div class="price-button d-flex">
@@ -444,7 +443,7 @@ Document
                     <div class="card-body">
                         <h3>CATEGORY</h3>
                         <h2>{{$f4->name}}</h2>
-                        <p class="card-text">{{$f4->price}}</p>
+                        <p class="card-text">${{$f4->price}}</p>
                     </div>
                 </div>
 
@@ -485,7 +484,7 @@ Document
                     <div class="card-body">
                         <h3>CATEGORY</h3>
                         <h2>{{$b4->name}}</h2>
-                        <p class="card-text">{{$b4->price}}</p>
+                        <p class="card-text">${{$b4->price}}</p>
                     </div>
                 </div>
 
@@ -554,6 +553,7 @@ Document
 
 @section('js')
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
     <script>
         var swiper = new Swiper(".mySwiper", {
             cssMode: true,

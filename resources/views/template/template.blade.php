@@ -27,26 +27,24 @@
     <nav>
         <!-- logo -->
         <div class="container-xxl d-flex justify-content-lg-between ">
-            <div class="logo"><img src="{{asset('img/homepage-img/logo--u5T7hu.svg')}}" alt=""></div>
+            <div class="logo"><a href="/"><img src="{{asset('img/homepage-img/logo--u5T7hu.svg')}}" alt=""></a></div>
             <!-- 相關超連結 -->
             <ul class="nav justify-content-end align-content-center ">
+
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Blog</a>
+                    <a class="nav-link" href="/banner">BANNER頁面</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
+                    <a class="nav-link" href="/product">商品管理頁面</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="/comment">心情留言板</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{asset('/checkedout1')}}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="user-icon nav-link "  href="#">
+                    <a class="user-icon nav-link "  href="/checkedout1">
                         <i  class=" fa-solid fa-circle-user"></i>
                     </a>
                     <div class="login-remind ">
@@ -61,22 +59,19 @@
                     <label for="burger"><i class="fa-solid fa-align-justify"></i></label>
                     <ul class="nav justify-content-end align-content-center">
                         <li class="nav-item2">
-                            <a class="nav-link active" aria-current="page" href="#">Blog</a>
+                            <a class="nav-link" href="/banner">BANNER頁面</a>
                         </li>
                         <li class="nav-item2">
-                            <a class="nav-link" href="#">Portfolio</a>
+                            <a class="nav-link" href="/product">商品管理頁面</a>
                         </li>
                         <li class="nav-item2">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item2">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="/comment">心情留言板</a>
                         </li>
                         <li class="nav-item2">
                             <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
                         </li>
                         <li class="nav-item2">
-                            <a class="user-icon nav-link " href="#">
+                            <a class="user-icon nav-link " href="/checkedout1">
                                 <i class=" fa-solid fa-circle-user"></i>
                             </a>
                             <div class="login-remind ">

@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-Banner頁面
+BANNER頁面
 
 @endsection
 

@@ -3,7 +3,7 @@
 
 @section('pageTitle')
 
-編輯檔案
+編輯BANNER
 
 @endsection
 
