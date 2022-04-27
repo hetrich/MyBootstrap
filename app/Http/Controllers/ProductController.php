@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\FilesController;
+use App\Models\Product_img;
 
 class ProductController extends Controller
 {
@@ -27,20 +29,31 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         // dd($request->all());
 
-        $path = Storage::disk('local')->put('public/product',$request->img);
+        $path = FilesController::imgUpload($request->product_img, 'product');
 
-        $path = str_replace('public', 'storage', $path);
+        // dd($path->all());
 
-        product::create([
-            'img' => '/' . $path,
+        $product = product::create([
+            'img' => $path,
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
         ]);
+
+        //次要圖片
+        if ($request->hasfile('second_img')) {
+            foreach ($request->second_img as $index => $element) {
+                $path = FilesController::imgUpload($element, 'product');
+
+                Product_img::Create([
+                    'img_path' => $path,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
 
         return redirect('/product');
     }
@@ -49,47 +62,40 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = product::find($id);
+        $product_img = Product_img::get();
 
+        // dd($product_img);
 
-
-        return view('product.productedit',compact('product'));
+        return view('product.productedit', compact('product', 'product_img'));
     }
-
-
-
 
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
 
-// dd($product,$product->img);
-
-// dd($product);
-
         // dd($request->all());
 
         if ($request->hasfile('img')) {
+            FilesController::deleteUpload($product->img); //小工具刪除圖片
+            $path = FilesController::imgUpload($request->img, 'product');
 
-
-            // Storage必須要記得dd確定變數名稱
-
-            $path = Storage::disk('local')->put(
-                'public/product',
-
-                //這裡要記得確定變數名稱 不一定是 $request->img
-                //也可能是 $request-> dd出來的變數
-                $request->img
-            );
-            $path = str_replace('public', 'storage', $path);
-
-            $target = str_replace('/storage', '/public', $product->img);
-
-            Storage::Disk('local')->delete($target);
-
-
-            $product->img = '/' . $path;
+            $product->img = $path;
         }
         // 商品名稱, 介紹, 價格, 數量
+
+        //次要圖片
+
+        if ($request->hasfile('second_img')) {
+            foreach ($request->second_img as $index => $element) {
+                $path = FilesController::imgUpload($element, 'product');
+
+                Product_img::Create([
+                    'img_path' => $path,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
+
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -102,13 +108,33 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-
         $product = Product::find($id);
-        $target = str_replace('/storage', 'public', $product->img);
 
-        Storage::disk('local')->delete($target);
+        $imgs = product_img::where('product_id', $id)->get();
+
+        foreach ($imgs as $key => $value) {
+            FilesController::deleteUpload($value->img_path);
+            $value->delete();
+        }
+
+        FilesController::deleteUpload($product->img);
         $product->delete();
 
         return redirect('/product');
+    }
+
+    public function delete_img($img_id)
+    {
+        $img = product_img::find($img_id);
+
+        // dd($img->all());
+
+        FilesController::deleteUpload($img->img_path);
+
+        $product_id = $img->product_id;
+
+        $img->delete();
+
+        return redirect('/product/edit/' . $product_id);
     }
 }

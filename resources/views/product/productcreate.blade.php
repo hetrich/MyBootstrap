@@ -34,8 +34,14 @@
 @csrf
 
 <div class="upload-box d-flex flex-column" >
-<label for="img">商品圖片</label>
-<input type="file" name="img">
+<label for="product_img">商品圖片</label>
+<input type="file" name="product_img">
+
+<div class="upload-box d-flex flex-column" >
+<label for="second_img">次要圖片</label>
+<input type="file" name="second_img[]" multiple accept="image/*">
+
+
 
 <label for="name">商品名稱</label>
 <input type="text" name="name">

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
+use App\Models\product_img;
 
 /**
  * @property integer $id
@@ -30,4 +30,16 @@ class product extends Model
      * @var array
      */
     protected $fillable = [ 'name', 'price', 'quantity', 'description', 'img'];
+
+
+
+    public function imgs(){
+
+        return $this->hasMany(product_img::class,'product_id','id');
+
+    }
+
+
+
+
 }

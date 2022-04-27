@@ -7,6 +7,9 @@ use App\Models\Comment;
 
 class ShoppingCarController extends Controller
 {
+
+
+    
     //購物網站首頁及購物車頁面
     public function index()
     {

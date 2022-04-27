@@ -34,17 +34,44 @@
 
                 <!-- 底部留言表單 -->
                 <div id="section3">
-                    <form action="/product/update/{{$product->id}}" class="form" method="post" enctype="multipart/form-data" >
+<form action="/product/update/{{$product->id}}" class="form" method="post" enctype="multipart/form-data" >
 
 @csrf
 
 <div class="upload-box d-flex flex-column" >
 
       <!-- 預覽圖片 -->
-<div>現在圖片</div>
-      <img src="{{$product->img}}" alt="">
-<label for="img"></label>
+<div>目前主要圖片</div>
+      <img src="{{$product->img}}" alt="" style="max-width:300px;">
+<label for="img">商品主要圖片上傳</label>
 <input type="file" name="img" id="img" >
+
+<div>目前其他圖片</div>
+<div class="d-flex flex-wrap align-items-start">
+
+
+<div class="d-flex flex-column ">
+
+@foreach ($product->imgs as $item)
+<div class="d-flex mb-3 align-items-center">
+<img src="{{$item->img_path}}" alt="" style="max-width:150px;" class="me-3">
+
+<button class="btn btn-danger"  onclick="document.querySelector('#deleteForm{{$item->id}}').submit();" type="button">刪除</button>
+
+</div>
+@endforeach
+
+</div>
+
+
+</div>
+
+
+<label for="second_img">商品其他圖片上傳</label>
+<input type="file" name="second_img[]" multiple accept="image/*"  id="second_img" >
+
+
+
 
 <label for="name">檔案名稱</label>
 <input type="text" name="name" id="name" value="{{$product->name}}">
@@ -69,6 +96,23 @@
                             <button type="submit" class="btn btn-primary">修改商品</button>
                         </div>
                     </form>
+
+
+
+                    @foreach ($product->imgs as $item)
+
+
+                    <form action="/product/delete_img/{{$item->id}}" method="post" hidden id="deleteForm{{$item->id}}">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+
+                    
+                    @endforeach
+
+
+
+
                 </div>
             </div>
         </div>
