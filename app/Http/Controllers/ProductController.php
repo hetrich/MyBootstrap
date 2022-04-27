@@ -73,6 +73,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
+
+        // dd('goodbye');
         // dd($request->all());
 
         if ($request->hasfile('img')) {
@@ -110,6 +112,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
+
+
         $imgs = product_img::where('product_id', $id)->get();
 
         foreach ($imgs as $key => $value) {
@@ -127,7 +131,6 @@ class ProductController extends Controller
     {
         $img = product_img::find($img_id);
 
-        // dd($img->all());
 
         FilesController::deleteUpload($img->img_path);
 
@@ -137,4 +140,8 @@ class ProductController extends Controller
 
         return redirect('/product/edit/' . $product_id);
     }
+
+
+
+
 }

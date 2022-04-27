@@ -53,10 +53,10 @@
 <div class="d-flex flex-column ">
 
 @foreach ($product->imgs as $item)
-<div class="d-flex mb-3 align-items-center">
+<div class="d-flex mb-3 align-items-center" id="sup_img{{$item->id}}">
 <img src="{{$item->img_path}}" alt="" style="max-width:150px;" class="me-3">
 
-<button class="btn btn-danger"  onclick="document.querySelector('#deleteForm{{$item->id}}').submit();" type="button">刪除</button>
+<button class="btn btn-danger"  onclick="delete_img({{$item->id}}) " type="button">刪除</button>
 
 </div>
 @endforeach
@@ -92,14 +92,14 @@
 
             <!-- 按鈕 -->
                         <div class="button-box d-flex justify-content-center">
-                            <button class="btn btn-secondary me-3" type="submit">取消</button>
+                            <button class="btn btn-secondary me-3" type="submit"  onclick="history.back()" >取消</button>
                             <button type="submit" class="btn btn-primary">修改商品</button>
                         </div>
                     </form>
 
 
 
-                    @foreach ($product->imgs as $item)
+                    {{-- @foreach ($product->imgs as $item)
 
 
                     <form action="/product/delete_img/{{$item->id}}" method="post" hidden id="deleteForm{{$item->id}}">
@@ -107,8 +107,8 @@
                         @method('DELETE')
                     </form>
 
-                    
-                    @endforeach
+
+                    @endforeach --}}
 
 
 
@@ -118,3 +118,37 @@
         </div>
 
         @endsection
+
+
+
+@section('Js')
+
+<script>
+function delete_img(id){
+
+    let formData = new FormData();
+    formData.append('_method','delete');
+    formData.append('_token','{{csrf_token()}}');
+
+
+    fetch('/product/delete_img/'+id,{
+        method:'POST',
+        body: formData
+    })
+
+
+    .then(function(response){
+
+        let element = document.querySelector('#sup_img'+id)
+        element.parentNode.removeChild(element);
+
+    })
+
+}
+
+
+
+
+</script>
+@endsection
+
