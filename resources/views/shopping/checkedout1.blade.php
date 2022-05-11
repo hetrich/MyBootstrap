@@ -1,4 +1,4 @@
-@extends('template.template')
+    @extends('template.template')
 
 
 @section('pageTitle')訂單第一頁@endsection
@@ -12,8 +12,8 @@
 @section('main')
 
         <div class="banner .container-fluid">
-            <div class="list-detail">
-
+            <form class="list-detail" method="post" action="/checkedout2">
+                @csrf
                 <!-- 上方進度條 -->
                 <div id="section1" class="container-xxl">
                     <!-- 購物車標題 -->
@@ -74,72 +74,40 @@
                     </div>
                     <!-- 訂單內容 -->
                     <div class="order-list">
+                        {{-- {{$ShoppingCart->product}} --}}
+                        @foreach ($ShoppingCart as $gogo)
+                        <div id="aaa{{$gogo->id}}">
+                        <div class="r-button"><button type="button" onclick="deleteList({{$gogo->id}})"  class="btn btn-danger">刪除</button></div>
                         <div class="first-item d-flex justify-content-between">
                             <!-- 訂單內容左方區塊 -->
                             <div class="l-box d-flex">
                                 <!-- 商品照 -->
                                 <div class="goods-img">
-                                    <img src="./img/shopping-car-img/cute-cat.jpg" alt="Goods-Photo">
+                                    <img src="{{$gogo->product->img}}" alt="Goods-Photo">
                                 </div>
+
+
                                 <!-- 商品名稱&訂單編號 -->
                                 <div class="goods-info d-flex justify-content-center align-items-start">
-                                    <div class="name">Cute-kitten-miao-miao</div>
-                                    <div class="number">#94-koo-tsui</div>
+                                    <div class="name">{{$gogo->product->name}}</div>
                                 </div>
                             </div>
                             <!-- 訂單內容右方區塊 -->
                             <div class="r-box d-flex align-items-center">
                                 <!-- 商品數量與商品價格 -->
-                                <div class="quantity"><i class="fa-solid fa-plus"></i>
-                                    <input type="text" placeholder="1"><i class="fa-solid fa-plus"></i>
+                                <div id="goods-quantity" class="quantity">
+                                    <i id="minus" class="fa-solid fa-minus"></i>
+                                    <input id="qty" style="text-align:center;" type="text" name="qty[]" value="{{$gogo->quantity}}">
+                                    <i id="plus" class="fa-solid fa-plus"></i>
                                 </div>
-                                <div class="sum-price"> $520.22</div>
+
+                                <div class="sum-price">$　{{$gogo->quantity * $gogo->product->price}}</div>
                             </div>
+                            {{-- 刪除按鈕 --}}
                         </div>
-                        <div class="second-item d-flex justify-content-between">
-                            <!-- 訂單內容左方區塊 -->
-                            <div class="l-box d-flex">
-                                <!-- 商品照 -->
-                                <div class="goods-img">
-                                    <img src="./img/shopping-car-img/cute-cat.jpg" alt="Goods-Photo">
-                                </div>
-                                <!-- 商品名稱&訂單編號 -->
-                                <div class="goods-info d-flex justify-content-center align-items-start">
-                                    <div class="name">Cute-kitten-miao-miao</div>
-                                    <div class="number">#94-koo-tsui</div>
-                                </div>
-                            </div>
-                            <!-- 訂單內容右方區塊 -->
-                            <div class="r-box d-flex align-items-center">
-                                <!-- 商品數量與商品價格 -->
-                                <div class="quantity"><i class="fa-solid fa-plus"></i>
-                                    <input type="text"  placeholder="1"><i class="fa-solid fa-plus"></i>
-                                </div>
-                                <div class="sum-price"> $520.22</div>
-                            </div>
-                        </div>
-                        <div class="third-item d-flex justify-content-between">
-                            <!-- 訂單內容左方區塊 -->
-                            <div class="l-box d-flex">
-                                <!-- 商品照 -->
-                                <div class="goods-img">
-                                    <img src="./img/shopping-car-img/cute-cat.jpg" alt="Goods-Photo">
-                                </div>
-                                <!-- 商品名稱&訂單編號 -->
-                                <div class="goods-info d-flex justify-content-center align-items-start">
-                                    <div class="name">Cute-kitten-miao-miao</div>
-                                    <div class="number">#94-koo-tsui</div>
-                                </div>
-                            </div>
-                            <!-- 訂單內容右方區塊 -->
-                            <div class="r-box d-flex align-items-center">
-                                <!-- 商品數量與商品價格 -->
-                                <div class="quantity"><i class="fa-solid fa-plus"></i>
-                                    <input type="text" placeholder="1"><i class="fa-solid fa-plus"></i>
-                                </div>
-                                <div class="sum-price"> $520.22</div>
-                            </div>
-                        </div>
+
+                    </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -150,19 +118,29 @@
                         <div class="price-box d-flex">
                             <div class="quantity d-flex justify-content-between">
                                 <h5>數量:</h5>
-                                <span>3</span>
+                                <span>
+
+                                    {{count($ShoppingCart)}}
+
+                                </span>
                             </div>
                             <div class="subtotal d-flex justify-content-between">
                                 <h5>小計:</h5>
-                                <span>520.22</span>
+                                <span>
+
+                                    {{$total_price}}
+
+                                </span>
                             </div>
                             <div class="shipping-fee d-flex justify-content-between">
                                 <h5>運費:</h5>
-                                <span>520.22</span>
+                                <span>$　100</span>
                             </div>
                             <div class="total d-flex justify-content-between">
                                 <h5>總計:</h5>
-                                <span>520.22</span>
+                                <span>
+                                    {{$total_price + 100}}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -175,8 +153,40 @@
                                     class="fa-solid fa-arrow-left"></i>返回購物</a>
 
                         </div>
-                        <div class="r-button"><a class="btn btn-primary" href="/checkedout2" role="button">下一步</a></div>
+                        <div class="r-button"><button type="submit" class="btn btn-primary" >下一步</button></div>
                     </div>
                 </div>
-            </div>
+            </form>
+@endsection
+
+@section('Js')
+
+<script>
+
+const a = document.querySelector('#a');
+console.log(a);
+
+
+
+function deleteList(id){
+
+let formData = new FormData();
+formData.append('_method','post');
+formData.append('_token','{{csrf_token()}}');
+
+fetch('/deleteList/'+id,{
+    method:'POST',
+    body: formData
+})
+
+.then(function(response){
+    let element = document.querySelector('#aaa'+id)
+        element.parentNode.removeChild(element);
+})
+
+}
+
+
+</script>
+
 @endsection

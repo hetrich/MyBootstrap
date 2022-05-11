@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\product_img;
+use App\Models\ShoppingCart;
 
 /**
  * @property integer $id
@@ -37,6 +38,10 @@ class product extends Model
 
         return $this->hasMany(product_img::class,'product_id','id');
 
+    }
+
+    public function shoppingCart(){
+        return $this->hasMany(ShoppingCart::class,'Product_id','id');
     }
 
 

@@ -18,8 +18,10 @@ class BannerController extends Controller
     {
         //將所有banner資料從資料庫拿出來並輸出到列表頁上
         $banners = Banner::orderBy('id', 'desc')->get();
+        $slot = '';
+        $header = '';
         //Banner首頁
-        return view('banner.index', compact('banners'));
+        return view('banner.index', compact('banners', 'header', 'slot'));
     }
 
     //banner 新增組
@@ -32,7 +34,9 @@ class BannerController extends Controller
     public function create()
     {
         //準備新增用的表單給使用者填寫
-        return view('banner.create');
+        $slot = '';
+        $header = '';
+        return view('banner.create', compact('header', 'slot'));
     }
 
     /**
@@ -45,14 +49,15 @@ class BannerController extends Controller
     {
         //將使用者的資料經過處理(EX:檔案上傳/防呆.....)後,新增至資料庫
 
+        $path = Storage::disk('local')->put(
+            'public/banner',
+            $request->img_path
+        );
 
-
-        $path = Storage::disk('local')->put('public/banner', $request->banner_img);
-
-        $path = str_replace("public",'storage',$path);
+        $path = str_replace('public', 'storage', $path);
 
         Banner::create([
-            'img_path' => '/'.$path,
+            'img_path' => '/' . $path,
             'img_opacity' => $request->img_opacity,
             'weight' => $request->weight,
         ]);
@@ -72,7 +77,9 @@ class BannerController extends Controller
     {
         //根據id找到想編輯的資料,將資料連同編輯用的表單畫面回傳給使用者
         $banner = Banner::find($id);
-        return view('banner.edit',compact('banner'));
+        $slot = '';
+        $header = '';
+        return view('banner.edit', compact('banner', 'header', 'slot'));
     }
 
     /**
@@ -89,8 +96,11 @@ class BannerController extends Controller
 
         if ($request->hasfile('banner_img')) {
             //經過處理(EX:檔案上傳/防呆.....)後
-            $path = Storage::disk('local')->put('public/banner',$request->banner_img);
-            $path = str_replace('public', 'storage',$path);
+            $path = Storage::disk('local')->put(
+                'public/banner',
+                $request->img_path
+            );
+            $path = str_replace('public', 'storage', $path);
 
             //將舊有的資料檔案刪除
 
@@ -119,7 +129,8 @@ class BannerController extends Controller
     {
         //使用ID找到要刪除的資料, 並且連同相關檔案一起刪除
         $banner = Banner::find($id);
-        $target = str_replace('/storage', 'public', $banner->img_path);
+
+        $target = str_replace('/storage', 'public', $banner->img);
         Storage::disk('local')->delete($target);
         $banner->delete();
 

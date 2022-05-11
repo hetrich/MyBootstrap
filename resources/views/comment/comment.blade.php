@@ -58,8 +58,13 @@
                             </div>
                         </div>
                         <div class="function-box">
+                            @auth
+
                             <a href="/comment/edit/{{$comment->id}}">編輯留言</a>
                             <a href="/comment/delete/{{$comment->id}}">刪除留言</a>
+
+                            @endauth
+
                         </div>
                     </div>
 

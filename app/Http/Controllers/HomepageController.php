@@ -33,8 +33,9 @@ class HomepageController extends Controller
             ->take(1)
             ->get();
 
+
         return view(
-            'shopping.index',
+            'index',
             compact('eightcardf4', 'eightcardb4', 'bigstore', 'data1')
         );
     }

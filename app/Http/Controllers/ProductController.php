@@ -15,16 +15,19 @@ class ProductController extends Controller
     {
         //將所有Product資料從資料庫拿出來並輸出到列表頁上
         $products = Product::orderBy('id', 'desc')->get();
-
+        $slot = '';
+        $header='';
         //回去商品觀看頁面
-        return view('product.productindex', compact('products'));
+        return view('product.productindex', compact('products','header','slot'));
     }
 
     //新增頁面
     public function create()
     {
+        $slot = '';
+        $header='';
         //準備新增用的表單給使用者填寫
-        return view('product.productcreate');
+        return view('product.productcreate', compact('header','slot'));
     }
 
     public function store(Request $request)
@@ -63,19 +66,18 @@ class ProductController extends Controller
     {
         $product = product::find($id);
         $product_img = Product_img::get();
+        $slot = '';
+        $header='';
 
         // dd($product_img);
 
-        return view('product.productedit', compact('product', 'product_img'));
+        return view('product.productedit', compact('product','header','slot'));
     }
 
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
 
-
-        // dd('goodbye');
-        // dd($request->all());
 
         if ($request->hasfile('img')) {
             FilesController::deleteUpload($product->img); //小工具刪除圖片
@@ -113,7 +115,6 @@ class ProductController extends Controller
         $product = Product::find($id);
 
 
-
         $imgs = product_img::where('product_id', $id)->get();
 
         foreach ($imgs as $key => $value) {
@@ -141,6 +142,20 @@ class ProductController extends Controller
         return redirect('/product/edit/' . $product_id);
     }
 
+
+    public function productinfo($id){
+
+        //主要圖片與描述
+
+        // dd($id);
+        $product = product::find($id);
+        // dd($product);
+        $product_img = Product_img::get();
+        $product2 = product::find($id)->where('id',$id)->get();
+        // dd($product);
+
+        return view('shopping.productinfo',compact('product','product_img','product2'));
+    }
 
 
 

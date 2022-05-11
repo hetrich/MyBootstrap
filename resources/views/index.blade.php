@@ -439,7 +439,7 @@
 
 
                 <div class="card">
-                    <img src="{{$f4->img}}" class="card-img-top" alt="...">
+                   <a href="/product/productinfo/{{$f4->id}}"> <img src="{{$f4->img}}" class="card-img-top" alt="..."></a>
                     <div class="card-body">
                         <h3>CATEGORY</h3>
                         <h2>{{$f4->name}}</h2>

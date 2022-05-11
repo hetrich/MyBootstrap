@@ -1,4 +1,4 @@
-@extends('template.template')
+@extends('layouts.app')
 
 
 @section('pageTitle')
@@ -9,6 +9,10 @@
 
 
 @section('css')
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 <link rel="stylesheet" href="{{asset('css/comment.css')}}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
@@ -31,7 +35,6 @@
                     <table id="product_list" class="display">
                         <thead>
                             <tr>
-
                                 <th>圖片</th>
                                 <th>品名</th>
                                 <th>介紹</th>
@@ -48,8 +51,9 @@
                             <tr>
                                 <td>
                                     <!--商品圖片-->
-                                <img src="{{asset($product->img)}}" alt="" style="max-width:300px;">
-
+                                    <a href="/product/productinfo/{{$product->id}}"class="d-flex justify-content-center">
+                                <img src="{{asset($product->img)}}" alt="" style="max-width:270px; max-height:130px;" >
+                            </a>
                                 </td>
                                 <td>
                                     <!--商品名稱-->
@@ -71,10 +75,6 @@
                                 <td>
                                      <!--功能按鈕-->
                                     <button class="btn btn-success" onclick="location.href='/product/edit/{{$product->id}}'">編輯</button>
-
-
-
-
 
                                     <button class="btn btn-danger" onclick="document.querySelector('#deleteForm{{$product->id}}').submit();">刪除</button>
 

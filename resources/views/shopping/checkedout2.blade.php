@@ -1,7 +1,9 @@
 @extends('template.template')
 
 
-@section('pageTitle')訂單第二頁@endsection
+@section('pageTitle')
+訂單第二頁
+@endsection
 
 
 @section('css')
@@ -11,7 +13,8 @@
 
 @section('main')
         <div class="banner .container-fluid">
-            <div class="list-detail">
+            <form class="list-detail" method="post" action="/checkedout3">
+                @csrf
                 <!-- 上方進度條 -->
                 <div id="section1" class="container-xxl">
                     <!-- 購物車標題 -->
@@ -73,15 +76,15 @@
                         </div>
                         <div class="content">
                             <div class="first-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="credit-card">
-                                <label for="credit-card"><p>信用卡付款</p></label>
+                                <input value="1" type="radio" name="pay" id="credit_card">
+                                <label for="credit_card"><p>信用卡付款</p></label>
                             </div>
                             <div class="second-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="ATM">
+                                <input value="2" type="radio" name="pay" id="ATM">
                                 <label for="ATM"><p>網路 ATM</p></label>
                             </div>
                             <div class="third-choice d-flex align-items-center">
-                                <input type="radio" name="pay" id="storeCode">
+                                <input value="3" type="radio" name="pay" id="storeCode">
                                 <label for="storeCode"><p>超商代碼</p></label>
                             </div>
                         </div>
@@ -93,12 +96,12 @@
                         </div>
                         <div class="content">
                             <div class="first-choice d-flex align-items-center">
-                                <input type="radio" name="deliver" id="homeDelivery">
+                                <input value="1" type="radio" name="deliver" id="homeDelivery">
                                 <label for="homeDelivery"><p>黑貓宅配</p></label>
                             </div>
                             <div class="second-choice d-flex align-items-center">
-                                <input type="radio" name="deliver" id="storeToStore">
-                                <label for="storeToStore"><p>超商店到店</p></label>
+                                <input value="2" type="radio" name="deliver" id="shop">
+                                <label for="shop"><p>超商店到店</p></label>
                             </div>
                         </div>
                     </div>
@@ -135,9 +138,9 @@
                         <div class="l-button"><a class="btn btn-primary" onclick="history.back()" role="button">上一步</a>
 
                         </div>
-                        <div class="r-button"><a class="btn btn-primary" href="/checkedout3" role="button">下一步</a></div>
+                        <div class="r-button"><button class="btn btn-primary" type="submit">下一步</button></div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 @endsection
