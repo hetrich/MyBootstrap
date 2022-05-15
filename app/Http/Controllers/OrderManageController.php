@@ -16,6 +16,7 @@ class OrderManageController extends Controller
     //
     public function index()
     {
+        // dd('hi');
         $order = Order::get();
         // dd($order);
         $header = '訂單管理';

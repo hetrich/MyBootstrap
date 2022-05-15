@@ -75,6 +75,11 @@
                     <!-- 訂單內容 -->
                     <div class="order-list">
                         {{-- {{$ShoppingCart->product}} --}}
+
+
+
+
+
                         @foreach ($ShoppingCart as $gogo)
                         <div id="aaa{{$gogo->id}}">
                         <div class="r-button"><button type="button" onclick="deleteList({{$gogo->id}})"  class="btn btn-danger">刪除</button></div>
@@ -101,7 +106,7 @@
                                     <i id="plus" class="fa-solid fa-plus"></i>
                                 </div>
 
-                                <div class="sum-price">$　{{$gogo->quantity * $gogo->product->price}}</div>
+                                <div class="sum-price ppppp" data-ccc={{$gogo->quantity}}>$　{{$gogo->quantity * $gogo->product->price}}</div>
                             </div>
                             {{-- 刪除按鈕 --}}
                         </div>
@@ -124,9 +129,9 @@
 
                                 </span>
                             </div>
-                            <div class="subtotal d-flex justify-content-between">
+                            <div class=" d-flex justify-content-between">
                                 <h5>小計:</h5>
-                                <span>
+                                <span class="subtotal">
 
                                     {{$total_price}}
 
@@ -136,9 +141,9 @@
                                 <h5>運費:</h5>
                                 <span>$　100</span>
                             </div>
-                            <div class="total d-flex justify-content-between">
+                            <div class=" d-flex justify-content-between">
                                 <h5>總計:</h5>
-                                <span>
+                                <span class="total">
                                     {{$total_price + 100}}
                                 </span>
                             </div>
@@ -163,6 +168,11 @@
 
 <script>
 
+
+
+
+
+
 const a = document.querySelector('#a');
 console.log(a);
 
@@ -184,9 +194,47 @@ fetch('/deleteList/'+id,{
         element.parentNode.removeChild(element);
 })
 
+
+
 }
 
 
+</script>
+
+
+{{-- 計算 --}}
+
+<script>
+    const plus = document.querySelectorAll('.fa-plus');
+            const minus = document.querySelectorAll('.fa-minus');
+            const qty = document.querySelectorAll('#qty');
+            const addproduct = document.querySelectorAll('.ppppp');
+            const total = document.querySelector('.total');
+            const subtotal = document.querySelector('.subtotal');
+            console.log(total);
+            // console.log(addproduct);
+            for (let i = 0; i < plus.length; i++) {
+                plus[i].onclick = function(){
+                    qty[i].value = parseInt(qty[i].value) + 1;
+                    addproduct[i].innerHTML = parseInt(qty[i].value) * parseInt(addproduct[i].dataset.ccc)
+                    aaa()
+                }
+                minus[i].onclick = function(){
+                    qty[i].value = parseInt(qty[i].value) - 1;
+                    addproduct[i].innerHTML = parseInt(qty[i].value) * parseInt(addproduct[i].dataset.ccc)
+                    aaa()
+                }
+
+                function aaa(){
+                    var sum = 0 ;
+                    for (let j = 0; j < addproduct.length; j++) {
+                        sum += parseInt(qty[j].value) * parseInt(addproduct[j].dataset.ccc)
+                    }
+                    console.log(sum);
+                    total.innerHTML = sum + 100;
+                    subtotal.innerHTML = sum ;
+                }
+            }
 </script>
 
 @endsection

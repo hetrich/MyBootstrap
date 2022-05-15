@@ -154,7 +154,7 @@
                         <div class="l-button"><a class="btn btn-primary" onclick="history.back()" role="button">上一步</a>
 
                         </div>
-                        <div class="r-button"><button type="submit" class="btn btn-primary" href="/checkedout4" role="button">前往付款</ㄖ></div>
+                        <div class="r-button"><button type="submit" class="btn btn-primary" href="/checkedout4" role="button">前往付款</button></div>
                     </div>
                 </div>
             </form>

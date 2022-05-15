@@ -10,6 +10,8 @@ use App\Models\ShoppingCart;
 use App\Models\Order;
 use App\Models\OrderList;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderComplete;
+use Illuminate\Support\Facades\Mail;
 
 class ShoppingCarController extends Controller
 {
@@ -121,6 +123,20 @@ class ShoppingCarController extends Controller
         return $result;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     //購物車結帳頁面
     public function checkedout1()
     {
@@ -145,7 +161,25 @@ class ShoppingCarController extends Controller
 
     public function checkedout2(Request $request)
     {
-        session(['amount' => $request->qty]);
+        // dd($request->all());
+
+        session(['amount' => $request->qty,]);
+
+        dd(session()->get('amount'));
+
+        $shopping = ShoppingCart::where('user_id', Auth::id())->get();
+
+        // dd($shopping);
+
+        foreach ($shopping as $key => $item){
+
+            dd($item);
+            $item->quantity = session()->get('amount')[$key];
+            $item->save();
+        }
+
+        // dd($element);
+
 
         // dd($request->all());
 
@@ -220,7 +254,7 @@ class ShoppingCarController extends Controller
         }
 
 
-
+        Mail::to('b23922853@gmail.com')->send(new OrderComplete);
 
 
         // dd($order);
@@ -252,7 +286,7 @@ class ShoppingCarController extends Controller
 
     public function deleteList(Request $request, $id){
 
-        $gg = ShoppingCart::find($id)->delete();
+        ShoppingCart::find($id)->delete();
         // $gg->save();
         // dd($request->all(), $id, $gg);
         return redirect('shopping.checkedout1');

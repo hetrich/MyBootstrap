@@ -35,10 +35,10 @@
                     </x-nav-link>
                 </div>
 
-                
+
                 {{-- 以下尚未修改 --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="'/checkedout1'" :active="request()->is('checkedout*')">
+                    <x-nav-link :href="'/ordermanage'" :active="request()->is('checkedout*')">
                         {{ __('訂單管理') }}
                     </x-nav-link>
                 </div>
